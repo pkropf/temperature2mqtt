@@ -4,9 +4,16 @@ import paho.mqtt.client as mqtt
 import Adafruit_DHT
 import platform
 import time
+import configparser
+import os
+
+
+config = configparser.ConfigParser()
+ini_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'temperature2mqtt.ini')
+config.read(ini_file)
 
 mqttc = mqtt.Client()
-mqttc.connect("localhost")
+mqttc.connect(config.get('mqtt', 'host'), config.getint('mqtt', 'port') )
 mqttc.loop_start()
 nodename = platform.node()
 pause = 30
