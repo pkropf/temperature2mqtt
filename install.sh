@@ -1,7 +1,7 @@
 #! /bin/bash
 
 
-cp temperature2mqtt.ini     /usr/local/bin/
+cp -b -S "-`date "+%Y%m%d%H%M%S"`" temperature2mqtt.ini  /usr/local/bin/
 cp temperature2mqtt.py      /usr/local/bin/
 cp temperature2mqtt.sh      /usr/local/bin/
 cp temperature2mqtt.service /lib/systemd/system/
