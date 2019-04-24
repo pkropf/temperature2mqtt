@@ -1,7 +1,6 @@
 [Unit]
 Description=Temperature to MQTT gateway
-Wants=mosquito
-After=network.target mosquito
+After=network.target
 
 [Service]
 Type=simple
