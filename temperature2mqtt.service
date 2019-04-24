@@ -1,12 +1,10 @@
 [Unit]
-Description=start Temperature to MQTT gateway
+Description=Temperature to MQTT gateway
 Wants=mosquito
 After=network.target mosquito
 
 [Service]
 Type=simple
-ExecStartPre=/usr/bin/gammu -c /etc/gammurc setautonetworklogin
-ExecStartPre=/usr/bin/gammu -c /etc/gammurc setpower ON
 ExecStart=/usr/local/bin/temperature2mqtt.sh
 StandardOutput=syslog
 StandardError=syslog
