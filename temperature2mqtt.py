@@ -22,20 +22,18 @@ keywords = os.environ.copy()
 keywords['nodename'] = platform.node()
 
 pause = config.getint('general', 'pause')
-temperature_topic = config.get('topics', 'temperature').format(**keywords)
-humidity_topic = config.get('topics', 'humidity').format(**keywords)
+sensor_topic = config.get('topics', 'sensor').format(**keywords)
 
 print(f"using mqtt broker {broker} on via port {broker_port}")
-print(f"publishing temperature to {temperature_topic}")
-print(f"publishing humidity to {humidity_topic}")
+print(f"publishing temperature to {sensor_topic}")
 
 while True:
     humidity, temperature = Adafruit_DHT.read_retry(11, 4)
 
-    mqttc.publish(temperature_topic, temperature)
-    mqttc.publish(humidity_topic,    humidity)
+    sensor_data = f'{{"temperature": "{temperature}", "humidity": "{humidity}"}}'
+    mqttc.publish(sensor_topic, sensor_data)
 
     ftemperature = (temperature * (9/5)) + 32
-    print(f'Temp: {temperature} C, {ftemperature} f  Humidity: {humidity}')
+    print(sensor_data)
 
     time.sleep(pause)
