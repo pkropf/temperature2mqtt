@@ -12,3 +12,4 @@ add:
 
     [Service]
     Environment=SITE=This is my site name
+    Environment=LOCATION=The sensor is located here
