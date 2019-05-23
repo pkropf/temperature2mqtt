@@ -39,8 +39,8 @@ while True:
 
     if units in ['f', 'F']:
         temperature = (temperature * (9/5)) + 32
-
-    sensor_data = f'{{"temperature": "{temperature}", "units": "{units}", "humidity": "{humidity}"}}'
+        
+    sensor_data = f'{{"temperature": "{temperature:.1f}", "units": "{units}", "humidity": "{humidity:.1f}"}}'
     mqttc.publish(sensor_topic, sensor_data)
 
     print(sensor_data)
