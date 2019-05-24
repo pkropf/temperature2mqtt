@@ -1,0 +1,3 @@
+[submodule "configHelper"]
+	path = configHelper
+	url = git@github.com:pkropf/configHelper.git
