@@ -6,19 +6,25 @@ import platform
 import time
 import configparser
 import os
+from configHelper import findConfig
 
 
+ini_file = findConfig('temperature2mqtt.ini')
 config = configparser.ConfigParser()
-ini_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'temperature2mqtt.ini')
 config.read(ini_file)
 
-mqttc = mqtt.Client()
 broker = config.get('mqtt', 'host')
 broker_port = config.getint('mqtt', 'port')
 
 dht_type = config.getint('dht', 'type')
 dht_port = config.getint('dht', 'port')
 
+# test if the broker has been configured, MQTT_BROKER is the default value in the
+# config file as distributed from the repository
+if broker == 'MQTT_BROKER':
+    raise ValueError('broker not configured')
+
+mqttc = mqtt.Client()
 mqttc.connect(broker, broker_port)
 mqttc.loop_start()
 
