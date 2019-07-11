@@ -24,7 +24,7 @@ dht_pin = int(config.get('dht', 'pin').format(**keywords))
 
 # test if the broker has been configured, MQTT_BROKER is the default value in the
 # config file as distributed from the repository
-if broker == 'mqtt host':
+if broker == 'MQTT_BROKER':
     raise ValueError('broker not configured')
 
 mqttc = mqtt.Client()
