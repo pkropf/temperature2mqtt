@@ -42,11 +42,17 @@ print(f"publishing temperature to {sensor_topic} as {units}")
 
 while True:
     humidity, temperature = Adafruit_DHT.read_retry(dht_type, dht_pin)
+    status = 'Ok'
 
-    if units in ['f', 'F']:
+    if temperature == None:
+        status = 'NoSensor'
+        temperature = 0.0
+        humidity = 0.0
+
+    elif units in ['f', 'F']:
         temperature = (temperature * (9/5)) + 32
-        
-    sensor_data = f'{{"temperature": "{temperature:.1f}", "units": "{units}", "humidity": "{humidity:.1f}"}}'
+
+    sensor_data = f'{{"status": "{status}", "temperature": "{temperature:.1f}", "units": "{units}", "humidity": "{humidity:.1f}"}}'
     mqttc.publish(sensor_topic, sensor_data)
 
     print(sensor_data)
