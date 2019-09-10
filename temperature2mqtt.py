@@ -9,8 +9,9 @@ import os
 from configHelper import findConfig
 
 
+nodename = platform.node()
 keywords = os.environ.copy()
-keywords['nodename'] = platform.node()
+keywords['nodename'] = nodename
 
 ini_file = findConfig('temperature2mqtt.ini')
 config = configparser.ConfigParser()
@@ -34,6 +35,8 @@ mqttc.loop_start()
 pause = int(config.get('general', 'pause').format(**keywords))
 units = config.get('general', 'units').format(**keywords)
 sensor_topic = config.get('topics', 'sensor').format(**keywords)
+location = config.get('general', 'location').format(**keywords)
+
 
 print(f"using configuration file {ini_file}")
 print(f"using mqtt broker {broker} on via port {broker_port}")
@@ -52,7 +55,7 @@ while True:
     elif units in ['f', 'F']:
         temperature = (temperature * (9/5)) + 32
 
-    sensor_data = f'{{"status": "{status}", "temperature": "{temperature:.1f}", "units": "{units}", "humidity": "{humidity:.1f}"}}'
+    sensor_data = f'{{"node": "{nodename}", "status": "{status}", "location": "{location}", "temperature": {temperature:.1f}, "units": "{units}", "humidity": {humidity:.1f}}}'
     mqttc.publish(sensor_topic, sensor_data)
 
     print(sensor_data)

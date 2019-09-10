@@ -1,9 +1,8 @@
 Package: temperature2mqtt
-Version: 1.0.4-1
+Version: 1.0.7-1
 Section: base
 Priority: optional
 Architecture: armhf
-Depends: python (>=3.7)
 Maintainer: Peter Kropf <pkropf@gmail.com>
 Description: temperature2mqtt for Raspberry Pi
  May run on other platforms.
