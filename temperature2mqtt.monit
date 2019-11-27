@@ -1,0 +1,2 @@
+check program temperature2mqtt with path "/bin/systemctl --quiet is-active temperature2mqtt"
+    if status != 0 then exec "/bin/systemctl start temperature2mqtt"
